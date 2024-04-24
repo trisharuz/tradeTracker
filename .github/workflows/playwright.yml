@@ -1,0 +1,23 @@
+name: TradeTracker Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t tradetracker-image .
+
+    - name: Run tests in Docker container
+      run: docker run tradetracker-image
